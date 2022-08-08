@@ -25,6 +25,39 @@ Nun könnt ihr die von euch gewählten Module exportieren.
 
 ## Module
 
+Aktuell haben wir 2 Module die Ihr nutzen könnt:
+
 ### auth()
+
+Diese Modul ist zur Authentifizierung von Nutzer.
+
+##### Verfügbare Funktionen
+
+`register(username: string, password: string)`
+Register user with username and password.
+Returns a promise with true
+
+`login(username: string, password: string)`
+Login user with username and password.
+Returns a promise with userData
+
+`logout()`
+Logout user
+
+`updateUser(data: any)`
+Update User with data
+Return a promise with true
+
+`requestPasswordReset(username: string)`
+Request a Link to reset password
+Returns a promise with true
+
+`resetPasswordByToken(token: string, password: string)`
+Reset the Password with token
+Returns a promise with true
+
+`deleteUser()`
+Delete the user
+Returns a promise with true
 
 ### db()
