@@ -3,6 +3,8 @@ import RequestTypes from '../requests/request';
 export default class HeNoAuth {
 	#requestTypes: RequestTypes;
 
+	userData: any = JSON.parse(localStorage.getItem('userData') || '{}');
+
 	constructor(requestTypes: RequestTypes) {
 		this.#requestTypes = requestTypes;
 	}
@@ -20,11 +22,9 @@ export default class HeNoAuth {
 		});
 
 		if (resData) {
-			let token = resData.token;
 			let userData = resData.user;
-
-			localStorage.setItem('token', token);
-			localStorage.setItem('user', JSON.stringify(userData));
+			this.userData = userData;
+			localStorage.setItem('userData', JSON.stringify(userData));
 			return resData.user;
 		}
 
@@ -48,8 +48,8 @@ export default class HeNoAuth {
 	 * Logout User
 	 */
 	logout() {
-		localStorage.removeItem('token');
-		localStorage.removeItem('user');
+		localStorage.removeItem('userData');
+		this.userData = null;
 	}
 
 	/**
@@ -58,15 +58,9 @@ export default class HeNoAuth {
 	 * @returns boolean : Promise<any>
 	 */
 	updateUser(data: any) {
-		return this.#requestTypes.patch(
-			'/user',
-			{
-				data,
-			},
-			{
-				'Authorization': `Bearer ${localStorage.getItem('token')}`,
-			}
-		);
+		return this.#requestTypes.patch('/user', {
+			data,
+		});
 	}
 
 	/**
@@ -74,9 +68,7 @@ export default class HeNoAuth {
 	 * @returns boolean : Promise<any>
 	 */
 	deleteUser() {
-		return this.#requestTypes.delete('/user', {
-			'Authorization': `Bearer ${localStorage.getItem('token')}`,
-		});
+		return this.#requestTypes.delete('/user', {});
 	}
 
 	/**
@@ -98,8 +90,8 @@ export default class HeNoAuth {
 	 */
 	resetPasswordByToken(token: string, password: string) {
 		return this.#requestTypes.post('/user/password/reset', {
-			token,
 			password,
+			token,
 		});
 	}
 
@@ -108,11 +100,8 @@ export default class HeNoAuth {
 	 * @returns userData
 	 */
 	getUser() {
-		let data = '{}';
-		if (typeof window !== 'undefined') {
-			data = localStorage.getItem('user') || '{}';
-		}
-
-		return JSON.parse(data);
+		return (
+			this.userData || JSON.parse(localStorage.getItem('userData') || '{}')
+		);
 	}
 }

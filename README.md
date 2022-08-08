@@ -17,7 +17,7 @@ Diese brauchen wir gleich.
 
 Um HeNoBase nutzen zu können müssen wir als erstes eine config-Datei erstellen.
 Die Datei sieht aus wie folgt:
-![HeNoBase Config](./readMe/img/henobase-config.png)
+![HeNoBase Config](https://github.com/HeNoMedia/henobase/blob/HEAD/readMe/img/henobase-config.png)
 Unter `henobaseConfig` speichern wir unsere `connectionURL` und den `apiKey`
 Wenn wir das getan haben, erstellen wir eine neue Instanz von `HeNoBaseConnection` und geben die Config mit.
 

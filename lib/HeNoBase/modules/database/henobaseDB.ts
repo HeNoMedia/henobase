@@ -42,9 +42,7 @@ class HeNoBaseDB {
 			sort: this.#sort,
 		};
 
-		return this.#requestTypes.post(`/db/${this.#collectionName}/get`, params, {
-			'Authorization': `Bearer ${localStorage.getItem('token')}`,
-		});
+		return this.#requestTypes.post(`/db/${this.#collectionName}/get`, params);
 	}
 
 	// get All
@@ -67,10 +65,7 @@ class HeNoBaseDB {
 
 		return this.#requestTypes.post(
 			`/db/${this.#collectionName}/get/all`,
-			params,
-			{
-				'Authorization': `Bearer ${localStorage.getItem('token')}`,
-			}
+			params
 		);
 	}
 
@@ -85,9 +80,7 @@ class HeNoBaseDB {
 			throw new CollectionNameError();
 		}
 
-		return this.#requestTypes.get(`/db/${this.#collectionName}/${id}`, {
-			'Authorization': `Bearer ${localStorage.getItem('token')}`,
-		});
+		return this.#requestTypes.get(`/db/${this.#collectionName}/${id}`);
 	}
 
 	// ---------   Query Methods   ------------  //
@@ -123,9 +116,7 @@ class HeNoBaseDB {
 			throw new CollectionNameError();
 		}
 
-		this.#requestTypes.post(`/db/${this.#collectionName}/insert`, data, {
-			'Authorization': `Bearer ${localStorage.getItem('token')}`,
-		});
+		this.#requestTypes.post(`/db/${this.#collectionName}/insert`, data);
 	}
 
 	/**
@@ -136,9 +127,7 @@ class HeNoBaseDB {
 		if (!this.#collectionName) {
 			throw new CollectionNameError();
 		}
-		this.#requestTypes.patch(`/db/${this.#collectionName}/${id}`, data, {
-			'Authorization': `Bearer ${localStorage.getItem('token')}`,
-		});
+		this.#requestTypes.patch(`/db/${this.#collectionName}/${id}`, data);
 	}
 
 	/**
@@ -149,9 +138,7 @@ class HeNoBaseDB {
 		if (!this.#collectionName) {
 			throw new CollectionNameError();
 		}
-		this.#requestTypes.delete(`/db/${this.#collectionName}/${id}`, {
-			'Authorization': `Bearer ${localStorage.getItem('token')}`,
-		});
+		this.#requestTypes.delete(`/db/${this.#collectionName}/${id}`);
 	}
 }
 
