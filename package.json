@@ -1,0 +1,29 @@
+{
+	"name": "henobase",
+	"version": "1.0.5",
+	"description": "Little DB and Auth Package",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"directories": {
+		"lib": "lib"
+	},
+	"devDependencies": {
+		"typescript": "^4.7.4"
+	},
+	"dependencies": {
+		"axios": "^0.27.2"
+	},
+	"scripts": {
+		"build": "tsc"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/HeNoMedia/henobase.git"
+	},
+	"author": "HeNoMedia",
+	"license": "Apache-2.0",
+	"bugs": {
+		"url": "https://github.com/HeNoMedia/henobase/issues"
+	},
+	"homepage": "https://github.com/HeNoMedia/henobase#readme"
+}
