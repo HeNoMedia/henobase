@@ -3,7 +3,7 @@ import RequestTypes from '../requests/request';
 export default class HeNoAuth {
 	#requestTypes: RequestTypes;
 
-	userData: any = JSON.parse(localStorage.getItem('userData') || '{}');
+	userData: any;
 
 	constructor(requestTypes: RequestTypes) {
 		this.#requestTypes = requestTypes;
@@ -24,8 +24,7 @@ export default class HeNoAuth {
 		if (resData) {
 			let userData = resData.user;
 			this.userData = userData;
-			localStorage.setItem('userData', JSON.stringify(userData));
-			return resData.user;
+			return userData;
 		}
 
 		return null;
@@ -48,7 +47,6 @@ export default class HeNoAuth {
 	 * Logout User
 	 */
 	logout() {
-		localStorage.removeItem('userData');
 		this.userData = null;
 	}
 
@@ -100,8 +98,6 @@ export default class HeNoAuth {
 	 * @returns userData
 	 */
 	getUser() {
-		return (
-			this.userData || JSON.parse(localStorage.getItem('userData') || '{}')
-		);
+		return this.userData;
 	}
 }

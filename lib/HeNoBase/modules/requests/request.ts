@@ -45,7 +45,7 @@ export default class RequestTypes {
 				throw new ResponseError('POST', response);
 			}
 
-			return response.data;
+			return response.data.data;
 		} catch (error: any) {
 			console.error(new ResponseError('POST', error.response));
 		}
@@ -58,20 +58,18 @@ export default class RequestTypes {
 				throw new ConnectionError();
 			}
 
-			let response = await fetch(this.#connetionURL + url, {
-				method: 'GET',
+			let response = await axios.get(this.#connetionURL + url, {
 				headers: {
 					...this.preDefinedHeader,
 					...additionalHeader,
 				},
-				mode: 'no-cors',
 			});
 
 			if (response.status !== 200) {
-				throw new ResponseError('Get', await response.text());
+				throw new ResponseError('Get', response);
 			}
 
-			return await response.json();
+			return await response.data.data;
 		} catch (error) {
 			console.error(error);
 		}
@@ -84,21 +82,18 @@ export default class RequestTypes {
 				throw new ConnectionError();
 			}
 
-			let response = await fetch(this.#connetionURL + url, {
-				method: 'PATCH',
+			let response = await axios.patch(this.#connetionURL + url, data, {
 				headers: {
 					...this.preDefinedHeader,
 					...additionalHeader,
 				},
-				body: JSON.stringify(data),
-				mode: 'no-cors',
 			});
 
 			if (response.status !== 200) {
-				throw new ResponseError('Patch', await response.text());
+				throw new ResponseError('Patch', response);
 			}
 
-			return await response.json();
+			return await response.data.data;
 		} catch (error) {
 			console.error(error);
 		}
@@ -111,20 +106,18 @@ export default class RequestTypes {
 				throw new ConnectionError();
 			}
 
-			let response = await fetch(this.#connetionURL + url, {
-				method: 'DELETE',
+			let response = await axios.delete(this.#connetionURL + url, {
 				headers: {
 					...this.preDefinedHeader,
 					...additionalHeader,
 				},
-				mode: 'no-cors',
 			});
 
 			if (response.status !== 200) {
-				throw new ResponseError('Delete', await response.text());
+				throw new ResponseError('Delete', response);
 			}
 
-			return await response.json();
+			return await response.data.data;
 		} catch (error) {
 			console.error(error);
 		}
