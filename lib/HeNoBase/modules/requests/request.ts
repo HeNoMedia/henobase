@@ -45,7 +45,7 @@ export default class RequestTypes {
 				throw new ResponseError('POST', response);
 			}
 
-			return response.data.data;
+			return response.data;
 		} catch (error: any) {
 			console.error(new ResponseError('POST', error.response));
 		}
@@ -69,7 +69,7 @@ export default class RequestTypes {
 				throw new ResponseError('Get', response);
 			}
 
-			return await response.data.data;
+			return await response.data;
 		} catch (error) {
 			console.error(error);
 		}
@@ -93,7 +93,7 @@ export default class RequestTypes {
 				throw new ResponseError('Patch', response);
 			}
 
-			return await response.data.data;
+			return await response.data;
 		} catch (error) {
 			console.error(error);
 		}
@@ -117,7 +117,7 @@ export default class RequestTypes {
 				throw new ResponseError('Delete', response);
 			}
 
-			return await response.data.data;
+			return await response.data;
 		} catch (error) {
 			console.error(error);
 		}
