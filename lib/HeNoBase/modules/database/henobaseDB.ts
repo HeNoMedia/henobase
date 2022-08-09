@@ -32,7 +32,7 @@ class HeNoBaseDB {
 	 * The data can be ordered and filtered with params
 	 * @returns Promise<RequestTypes>
 	 */
-	get() {
+	async get() {
 		if (!this.#collectionName) {
 			throw new CollectionNameError();
 		}
@@ -42,7 +42,10 @@ class HeNoBaseDB {
 			sort: this.#sort,
 		};
 
-		return this.#requestTypes.post(`/db/${this.#collectionName}/get`, params);
+		return await this.#requestTypes.post(
+			`/db/${this.#collectionName}/get`,
+			params
+		);
 	}
 
 	// get All
@@ -52,7 +55,7 @@ class HeNoBaseDB {
 	 * The data can be ordered and filtered with params
 	 * @returns Promise<RequestTypes>
 	 */
-	getAll(limit: number = 0) {
+	async getAll(limit: number = 0) {
 		if (!this.#collectionName) {
 			throw new CollectionNameError();
 		}
@@ -63,7 +66,7 @@ class HeNoBaseDB {
 			limit: limit === 0 ? undefined : limit,
 		};
 
-		return this.#requestTypes.post(
+		return await this.#requestTypes.post(
 			`/db/${this.#collectionName}/get/all`,
 			params
 		);
@@ -75,12 +78,12 @@ class HeNoBaseDB {
 	 * @param id: string
 	 * @returns Promise<RequestTypes>
 	 */
-	getByID(id: string) {
+	async getByID(id: string) {
 		if (!this.#collectionName) {
 			throw new CollectionNameError();
 		}
 
-		return this.#requestTypes.get(`/db/${this.#collectionName}/${id}`);
+		return await this.#requestTypes.get(`/db/${this.#collectionName}/${id}`);
 	}
 
 	// ---------   Query Methods   ------------  //
@@ -111,34 +114,40 @@ class HeNoBaseDB {
 	 * Insert Entry to Collection
 	 * @returns Promise<RequestTypes>
 	 */
-	insert(data: any) {
+	async insert(data: any) {
 		if (!this.#collectionName) {
 			throw new CollectionNameError();
 		}
 
-		return this.#requestTypes.post(`/db/${this.#collectionName}/insert`, data);
+		return await this.#requestTypes.post(
+			`/db/${this.#collectionName}/insert`,
+			data
+		);
 	}
 
 	/**
 	 * Update Entry by ID
 	 * @returns Promise<RequestTypes>
 	 */
-	updateByID(id: string, data: any) {
+	async updateByID(id: string, data: any) {
 		if (!this.#collectionName) {
 			throw new CollectionNameError();
 		}
-		return this.#requestTypes.patch(`/db/${this.#collectionName}/${id}`, data);
+		return await this.#requestTypes.patch(
+			`/db/${this.#collectionName}/${id}`,
+			data
+		);
 	}
 
 	/**
 	 * Delete Entry by ID
 	 * @returns Promise<RequestTypes>
 	 */
-	deleteByID(id: string) {
+	async deleteByID(id: string) {
 		if (!this.#collectionName) {
 			throw new CollectionNameError();
 		}
-		return this.#requestTypes.delete(`/db/${this.#collectionName}/${id}`);
+		return await this.#requestTypes.delete(`/db/${this.#collectionName}/${id}`);
 	}
 }
 
