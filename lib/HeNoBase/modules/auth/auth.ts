@@ -22,7 +22,7 @@ export default class HeNoAuth {
 		});
 
 		if (resData) {
-			let userData = resData.data;
+			let userData = resData.data.data;
 			this.userData = userData;
 			return userData;
 		}

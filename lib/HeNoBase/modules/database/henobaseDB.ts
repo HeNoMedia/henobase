@@ -116,7 +116,7 @@ class HeNoBaseDB {
 			throw new CollectionNameError();
 		}
 
-		this.#requestTypes.post(`/db/${this.#collectionName}/insert`, data);
+		return this.#requestTypes.post(`/db/${this.#collectionName}/insert`, data);
 	}
 
 	/**
@@ -127,7 +127,7 @@ class HeNoBaseDB {
 		if (!this.#collectionName) {
 			throw new CollectionNameError();
 		}
-		this.#requestTypes.patch(`/db/${this.#collectionName}/${id}`, data);
+		return this.#requestTypes.patch(`/db/${this.#collectionName}/${id}`, data);
 	}
 
 	/**
@@ -138,7 +138,7 @@ class HeNoBaseDB {
 		if (!this.#collectionName) {
 			throw new CollectionNameError();
 		}
-		this.#requestTypes.delete(`/db/${this.#collectionName}/${id}`);
+		return this.#requestTypes.delete(`/db/${this.#collectionName}/${id}`);
 	}
 }
 
