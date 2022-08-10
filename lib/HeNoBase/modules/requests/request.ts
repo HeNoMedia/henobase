@@ -45,7 +45,7 @@ export default class RequestTypes {
 				throw new ResponseError('POST', response);
 			}
 
-			return response;
+			return await response.data;
 		} catch (error: any) {
 			console.error(new ResponseError('POST', error.response));
 		}

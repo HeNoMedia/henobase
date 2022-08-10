@@ -42,10 +42,11 @@ class HeNoBaseDB {
 			sort: this.#sort,
 		};
 
-		return await this.#requestTypes.post(
+		let res = await this.#requestTypes.post(
 			`/db/${this.#collectionName}/get`,
 			params
 		);
+		return res?.data;
 	}
 
 	// get All
@@ -66,10 +67,11 @@ class HeNoBaseDB {
 			limit: limit === 0 ? undefined : limit,
 		};
 
-		return await this.#requestTypes.post(
+		let res = await this.#requestTypes.post(
 			`/db/${this.#collectionName}/get/all`,
 			params
 		);
+		return res?.data;
 	}
 
 	// get By ID
@@ -83,7 +85,8 @@ class HeNoBaseDB {
 			throw new CollectionNameError();
 		}
 
-		return await this.#requestTypes.get(`/db/${this.#collectionName}/${id}`);
+		let res = await this.#requestTypes.get(`/db/${this.#collectionName}/${id}`);
+		return res?.data;
 	}
 
 	// ---------   Query Methods   ------------  //
@@ -119,10 +122,11 @@ class HeNoBaseDB {
 			throw new CollectionNameError();
 		}
 
-		return await this.#requestTypes.post(
+		let res = await this.#requestTypes.post(
 			`/db/${this.#collectionName}/insert`,
 			data
 		);
+		return res?.data;
 	}
 
 	/**
@@ -133,10 +137,11 @@ class HeNoBaseDB {
 		if (!this.#collectionName) {
 			throw new CollectionNameError();
 		}
-		return await this.#requestTypes.patch(
+		let res = await this.#requestTypes.patch(
 			`/db/${this.#collectionName}/${id}`,
 			data
 		);
+		return res?.data;
 	}
 
 	/**
@@ -147,7 +152,10 @@ class HeNoBaseDB {
 		if (!this.#collectionName) {
 			throw new CollectionNameError();
 		}
-		return await this.#requestTypes.delete(`/db/${this.#collectionName}/${id}`);
+		let res = await this.#requestTypes.delete(
+			`/db/${this.#collectionName}/${id}`
+		);
+		return res?.data;
 	}
 }
 
