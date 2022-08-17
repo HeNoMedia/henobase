@@ -65,15 +65,23 @@ export default class HeNoAuth {
 	 * Verify User
 	 * @param token : string
 	 * @param userID : string
+	 * @returns userData : Promise<any>
 	 */
 
 	async verify(token: string, userID: string) {
-		let res = await this.#requestTypes.post('/user/verify', {
+		let resData = await this.#requestTypes.post('/user/verify', {
 			token,
 			userID,
 		});
 
-		return res;
+		if (resData) {
+			let userData = resData.data;
+			this.#userData = userData;
+			this.#onAuthCallback(userData);
+			return userData;
+		}
+
+		return null;
 	}
 
 	/**
