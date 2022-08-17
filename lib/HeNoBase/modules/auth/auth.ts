@@ -11,7 +11,7 @@ export default class HeNoAuth {
 		updatedAt: Date;
 	} | null;
 
-	onAuthChange: (
+	#onAuthCallback: (
 		user: {
 			_id: string;
 			username: string;
@@ -23,6 +23,20 @@ export default class HeNoAuth {
 
 	constructor(requestTypes: RequestTypes) {
 		this.#requestTypes = requestTypes;
+	}
+
+	onAuthStateChanged(
+		callback: (
+			user: {
+				_id: string;
+				username: string;
+				verified: boolean;
+				createdAt: Date;
+				updatedAt: Date;
+			} | null
+		) => void
+	) {
+		this.#onAuthCallback = callback;
 	}
 
 	/**
@@ -38,13 +52,28 @@ export default class HeNoAuth {
 		});
 
 		if (resData) {
-			let userData = resData.data.data;
+			let userData = resData.data;
 			this.#userData = userData;
-			this.onAuthChange(userData);
+			this.#onAuthCallback(userData);
 			return userData;
 		}
 
 		return null;
+	}
+
+	/**
+	 * Verify User
+	 * @param token : string
+	 * @param userID : string
+	 */
+
+	async verify(token: string, userID: string) {
+		let res = await this.#requestTypes.post('/user/verify', {
+			token,
+			userID,
+		});
+
+		return res;
 	}
 
 	/**
@@ -58,7 +87,7 @@ export default class HeNoAuth {
 			username,
 			password,
 		});
-		return res?.data;
+		return res;
 	}
 
 	/**
@@ -66,7 +95,7 @@ export default class HeNoAuth {
 	 */
 	logout() {
 		this.#userData = null;
-		this.onAuthChange(null);
+		this.#onAuthCallback(null);
 	}
 
 	/**
@@ -88,8 +117,8 @@ export default class HeNoAuth {
 	async deleteUser() {
 		let res = await this.#requestTypes.delete('/user', {});
 		this.#userData = null;
-		this.onAuthChange(null);
-		return res?.data;
+		this.#onAuthCallback(null);
+		return res;
 	}
 
 	/**
@@ -102,7 +131,7 @@ export default class HeNoAuth {
 			username,
 		});
 
-		return res?.data;
+		return res;
 	}
 
 	/**
@@ -117,7 +146,7 @@ export default class HeNoAuth {
 			token,
 		});
 
-		return res?.data;
+		return res;
 	}
 
 	/**
